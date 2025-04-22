@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Someone Special</title>
+  <style>
+    /* Base Styles */
+    :root {
+      --primary: #e57373;
+      --primary-light: #ffcdd2;
+      --primary-dark: #c62828;
+      --accent: #9c27b0;
+      --text: #37474f;
+      --background: #fff9f9;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Floating Hearts Background */
+    .hearts-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      opacity: 0.6;
+    }
+    
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: var(--primary-light);
+      transform: rotate(45deg);
+      opacity: 0;
+      animation: float 15s linear infinite;
+    }
+    
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+    }
+    
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    
+    .heart::after {
+      top: 0;
+      left: -10px;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: rotate(45deg) translateY(100vh);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: rotate(45deg) translateY(-100px) translateX(100px);
+        opacity: 0;
+      }
+    }
+    
+    /* Container Styles */
+    .container {
+      max-width: 800px;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Intro Section */
+    .intro {
+      margin-bottom: 3rem;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .intro-text {
+      font-family: 'Georgia', serif;
+      font-size: 2rem;
+      color: var(--primary-dark);
+      margin-bottom: 2rem;
+      min-height: 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .intro-text::after {
+      content: '|';
+      animation: blink 1s infinite;
+      margin-left: 2px;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    .continue-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s forwards;
+      animation-delay: 5s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .continue-btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Main Content */
+    .main-content {
+      display: none;
+      animation: fadeInUp 1.5s ease forwards;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .title {
+      font-family: 'Georgia', serif;
+      font-size: 3rem;
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background-color: var(--primary);
+      border-radius: 3px;
+    }
+    
+    .message {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+    
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .music-control {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 3rem;
+      margin-bottom: 2rem;
+    }
+    
+    .music-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+    }
+    
+    .music-btn:hover {
+      background-color: var(--primary-dark);
+      transform: scale(1.1);
+    }
+    
+    .music-btn i {
+      font-size: 1.5rem;
+    }
+    
+    .music-label {
+      font-size: 0.9rem;
+      color: var(--primary-dark);
+      font-style: italic;
+    }
+    
+    /* Audio Player Styles */
+    .audio-player-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .audio-player-container h3 {
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      font-family: 'Georgia', serif;
+    }
+    
+    /* Pulse animation for music button */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(229, 115, 115, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(229, 115, 115, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(229, 115, 115, 0);
+      }
+    }
+    
+    .pulse {
+      animation: pulse 1s infinite;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+      
+      .intro-text {
+        font-size: 1.5rem;
+      }
+      
+      .title {
+        font-size: 2.2rem;
+      }
+      
+      .message {
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .intro-text {
+        font-size: 1.2rem;
+      }
+      
+      .title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Elfsight Audio Player Script -->
+  <script src="https://static.elfsight.com/platform/platform.js" async></script>
+</head>
+<body>
+  <!-- Floating Hearts Background -->
+  <div class="hearts-container" id="heartsContainer"></div>
+  
+  <div class="container">
+    <!-- Intro Section with Typewriter Effect -->
+    <div class="intro" id="intro">
+      <div class="intro-text" id="introText"></div>
+      <button class="continue-btn" id="continueBtn">Continue</button>
+    </div>
+    
+    <!-- Main Content (Hidden Initially) -->
+    <div class="main-content" id="mainContent">
+      <h1 class="title">For My Special Someone</h1>
+      
+      <div class="card">
+        <p class="message">
+          From the moment our paths crossed, I knew there was something <span class="highlight">extraordinary</span> about you. Your smile brightens even the darkest days, and your laughter is the sweetest melody I've ever heard.
+        </p>
+      </div>
+      
+      <div class="card">
+        <p class="message">
+          Every moment spent with you feels like a beautiful dream I never want to wake up from. Your kindness, intelligence, and the way you see the world continue to <span class="highlight">inspire</span> me every day.
+        </p>
+      </div>
+      
+      <div class="card">
+        <p class="message">
+          I've created this little corner of the internet to express what words sometimes fail to convey. My feelings for you grow stronger with each passing day, and I cherish every memory we create together.
+        </p>
+      </div>
+      
+      <!-- Music Control (Legacy) -->
+      <div class="music-control">
+        <button class="music-btn" id="musicBtn">
+          <i class="fas fa-play" id="musicIcon"></i>
+        </button>
+        <p class="music-label">"A Thousand Years"</p>
+      </div>
+      
+      <!-- Elfsight Audio Player -->
+      <div class="audio-player-container">
+        <h3>Listen to Our Song</h3>
+        <div class="elfsight-app-ec5bd496-985c-4a35-a0c5-bb2e5f610b36" data-elfsight-app-lazy></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Audio Element (Hidden) for legacy player -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    <!-- Note: Replace with actual "A Thousand Years" audio file when available -->
+  </audio>
+  
+  <script>
+    // Create floating hearts
+    function createHearts() {
+      const heartsContainer = document.getElementById('heartsContainer');
+      const numberOfHearts = 20;
+      
+      for (let i = 0; i < numberOfHearts; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        
+        // Random positioning
+        const left = Math.random() * 100;
+        const delay = Math.random() * 15;
+        const size = Math.random() * 15 + 10;
+        
+        heart.style.left = `${left}%`;
+        heart.style.animationDelay = `${delay}s`;
+        heart.style.width = `${size}px`;
+        heart.style.height = `${size}px`;
+        
+        heart.style.opacity = Math.random() * 0.5 + 0.3;
+        
+        heartsContainer.appendChild(heart);
+        
+        // Set before and after pseudo-elements size
+        const style = document.createElement('style');
+        style.innerHTML = `
+          .heart:nth-child(${i+1})::before,
+          .heart:nth-child(${i+1})::after {
+            width: ${size}px;
+            height: ${size}px;
+          }
+          .heart:nth-child(${i+1})::before {
+            top: -${size/2}px;
+          }
+          .heart:nth-child(${i+1})::after {
+            left: -${size/2}px;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+    
+    // Typewriter effect function
+    function typeWriter(text, element, speed, callback) {
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        } else if (callback) {
+          callback();
+        }
+      }
+      type();
+    }
+    
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create floating hearts
+      createHearts();
+      
+      // Elements
+      const introText = document.getElementById('introText');
+      const continueBtn = document.getElementById('continueBtn');
+      const intro = document.getElementById('intro');
+      const mainContent = document.getElementById('mainContent');
+      const musicBtn = document.getElementById('musicBtn');
+      const musicIcon = document.getElementById('musicIcon');
+      const bgMusic = document.getElementById('bgMusic');
+      
+      // Start typewriter animation
+      const introMessage = "Hello there... I've been wanting to tell you something special...";
+      typeWriter(introMessage, introText, 100);
+      
+      // Continue button click event
+      continueBtn.addEventListener('click', function() {
+        intro.style.display = 'none';
+        mainContent.style.display = 'block';
+      });
+      
+      // Music control (legacy player)
+      let isPlaying = false;
+      
+      musicBtn.addEventListener('click', function() {
+        if (isPlaying) {
+          bgMusic.pause();
+          musicIcon.classList.remove('fa-pause');
+          musicIcon.classList.add('fa-play');
+        } else {
+          bgMusic.play().catch(error => {
+            console.log("Audio playback failed: ", error);
+          });
+          musicIcon.classList.remove('fa-play');
+          musicIcon.classList.add('fa-pause');
+        }
+        isPlaying = !isPlaying;
+      });
+      
+      // Add pulse animation to music button
+      setInterval(() => {
+        if (!isPlaying) {
+          musicBtn.classList.add('pulse');
+          setTimeout(() => {
+            musicBtn.classList.remove('pulse');
+          }, 1000);
+        }
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
